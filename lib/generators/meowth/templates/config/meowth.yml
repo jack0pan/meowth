@@ -1,0 +1,55 @@
+default: &default
+  sign_cert_path: "acp_test_sign.pfx"
+  sign_cert_password: "000000"
+  sign_cert_type: "PKCS12"
+  verify_sign_cert_path: "acp_test_verify_sign.cer"
+  validate_cert_dir: ""
+  encrypt_cert_path: "acp_test_enc.cer"
+  single_mode: true
+  front_trans_url: "https://101.231.204.80:5000/gateway/api/frontTransReq.do"
+  back_trans_url: "https://101.231.204.80:5000/gateway/api/backTransReq.do"
+  single_query_url: "https://101.231.204.80:5000/gateway/api/queryTrans.do"
+  batch_trans_url: "https://101.231.204.80:5000/gateway/api/batchTrans.do"
+  file_trans_url: "https://101.231.204.80:9080/"
+  app_trans_url: "https://101.231.204.80:5000/gateway/api/appTransReq.do"
+  card_trans_url: "https://101.231.204.80:5000/gateway/api/cardTransReq.do"
+  jf_front_trans_url: "https://101.231.204.80:5000/jiaofei/api/frontTransReq.do"
+  jf_back_trans_url: "https://101.231.204.80:5000/jiaofei/api/backTransReq.do"
+  jf_single_query_url: "https://101.231.204.80:5000/jiaofei/api/queryTrans.do"
+  jf_card_trans_url: "https://101.231.204.80:5000/jiaofei/api/cardTransReq.do"
+  jf_app_trans_url: "https://101.231.204.80:5000/jiaofei/api/appTransReq.do"
+
+development:
+  <<: *default
+  front_url: ""
+  back_url: ""
+
+test:
+  <<: *default
+  merchant_id: "700000000000001"
+  front_url: "http://101.231.204.84:11006/ACPTest/FrontRcvResponse.do"
+  back_url: "http://101.231.204.84:11006/ACPTest/BackRcvResponse.do"
+
+production:
+  sign_cert_path: "acp_test_sign.pfx"
+  sign_cert_password: "000000"
+  sign_cert_type: "PKCS12"
+  validate_cert_dir: ""
+  encrypt_cert_path: ""
+  single_mode: true
+  front_trans_url: "https://gateway.95516.com/gateway/api/frontTransReq.do"
+  back_trans_url: "https://gateway.95516.com/gateway/api/backTransReq.do"
+  single_query_url: "https://gateway.95516.com/gateway/api/queryTrans.do"
+  batch_trans_url: "https://gateway.95516.com/gateway/api/batchTrans.do"
+  file_trans_url: "https://101.231.204.80:9080/"
+  app_trans_url: "https://gateway.95516.com/gateway/api/appTransReq.do"
+  card_trans_url: "https://gateway.95516.com/gateway/api/cardTransReq.do"
+
+  jf_front_trans_url: "https://gateway.95516.com/jiaofei/api/frontTransReq.do"
+  jf_back_trans_url: "https://gateway.95516.com/jiaofei/api/backTransReq.do"
+  jf_single_query_url: "https://gateway.95516.com/jiaofei/api/queryTrans.do"
+  jf_card_trans_url: "https://gateway.95516.com/jiaofei/api/cardTransReq.do"
+  jf_app_trans_url: "https://gateway.95516.com/jiaofei/api/appTransReq.do"
+
+  front_url: ""
+  back_url: ""

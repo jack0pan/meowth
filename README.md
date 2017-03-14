@@ -1,41 +1,55 @@
 # Meowth
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/meowth`. To experiment with that code, run `bin/console` for an interactive prompt.
+## 安装
 
-TODO: Delete this and the text above, and describe your gem
-
-## Installation
-
-Add this line to your application's Gemfile:
+将以下内容添加到Gemfile：
 
 ```ruby
 gem 'meowth'
 ```
 
-And then execute:
+然后执行：
+```bash
+$ bundle install
+```
 
-    $ bundle
+生成配置文件：
+```ruby
+rails generate meowth:install
+```
 
-Or install it yourself as:
+## 使用
 
-    $ gem install meowth
+### 配置
+将自己的证书放到工程某个目录下，然后修改`meowth.yml`文件：
+```yaml
+default: &default
+  sign_cert_path: "path/to/acp_test_sign.pfx"
+  sign_cert_password: "000000"
+  verify_sign_cert_path: "path/to/acp_test_verify_sign.cer"
+  encrypt_cert_path: "path/to/acp_test_enc.cer"
 
-## Usage
+development:
+  <<: *default
+  front_url: "" # 商户前台回调地址
+  back_url: "" # 商户后台通知地址
+```
 
-TODO: Write usage instructions here
+### 网关类产品
+生成消费参数
+```ruby
+requrie 'meowth/service'
 
-## Development
+mer_id = '111111' # 商户id
+order_id = '22222222' # 订单ID
+txn_amt = 100 # 订单金额，单位是分
+params = Magneton::Service.create_gate_consume_params(mer_id, order_id, txn_amt)
+```
+之后，在前台页面，将生成的参数`post`给`Meowth::Config.config['front_trans_url']`，之后就会跳转到银联支付页面。
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
-
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
-
-## Contributing
-
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/meowth. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
-
+其他产品使用方法类似，这里不再赘述。
 
 ## License
 
-The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
+The gem is available as open source under the terms of the [MIT License](LICENSE.txt).
 
