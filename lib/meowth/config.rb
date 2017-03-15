@@ -60,16 +60,13 @@ module Meowth
     def self.init_constant
       if defined?(::Rails) and Rails.root
         config_file = Rails.root.join('config/meowth.yml')
-        return YAML.load(ERB.new(File.read(config_file)).result)[Rails.env] if File.exist?(config_file)
+        @config = YAML.load(ERB.new(File.read(config_file)).result)[Rails.env] if File.exist?(config_file)
       else
         require "yaml"
         rails_config_file = File.join(Dir.getwd, 'config/meowth.yml')
         if File.exist?(rails_config_file)
           rails_env = ENV['RAILS_ENV'] || 'default'
-          config = YAML.load(ERB.new(File.read(rails_config_file)).result)[rails_env]
-          if config
-            @config = config
-          end
+          @config = YAML.load(ERB.new(File.read(rails_config_file)).result)[rails_env] if File.exist?(rails_config_file)
         end
       end
     end
