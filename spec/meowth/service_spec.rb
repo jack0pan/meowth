@@ -21,7 +21,7 @@ describe Meowth::Service do
 
   it 'can create pay params' do
     order_id = Time.now.strftime('%Y%m%d%H%M%S%L').to_s
-    params = Meowth::Service.create_pay_params(@mer_id, order_id, 100, @acc_no, @certif_id, @customer_nm, @phone_no)
+    params = Meowth::Service.create_payment_params(@mer_id, order_id, 100, @acc_no, @customer_nm)
     response = RestClient.post('https://gateway.test.95516.com/gateway/api/backTransReq.do', params)
     result = CGI::parse(response.body)
     resp_code = result['respCode'].first

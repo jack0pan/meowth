@@ -143,7 +143,7 @@ module Meowth
     end
 
     # 代付产品 实名认证 参数
-    def self.create_pay_params(mer_id, order_id, txn_amt, acc_no, certif_id, customer_nm, phone_no)
+    def self.create_payment_params(mer_id, order_id, txn_amt, acc_no, customer_nm)
       params = {}
       params[Meowth::Constant::VERSION] = "5.0.0"
       params[Meowth::Constant::ENCODING] = "UTF-8"
@@ -161,8 +161,7 @@ module Meowth
       params[Meowth::Constant::TXN_TIME] = Time.now.strftime('%Y%m%d%H%M%S')
       params[Meowth::Constant::ACC_TYPE] = "01"
       params[Meowth::Constant::ACC_NO] = Meowth::Util.encrypt(acc_no)
-      encrypted_info = Meowth::Util.encrypt("phoneNo=#{phone_no}")
-      params[Meowth::Constant::CUSTOMER_INFO] = Base64.strict_encode64("{certifId=#{certif_id}&certifTp=01&customerNm=#{customer_nm}&encryptedInfo=#{encrypted_info}}")
+      params[Meowth::Constant::CUSTOMER_INFO] = Base64.strict_encode64("{customerNm=#{customer_nm}}")
       params[Meowth::Constant::ENCRYPT_CERT_ID] = Meowth::Config.encrypt_cert_id
       Meowth::Util.sign(params)
     end
